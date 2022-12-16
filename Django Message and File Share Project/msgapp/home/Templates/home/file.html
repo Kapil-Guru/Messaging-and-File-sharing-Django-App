@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script>
+            const refresh = "{% url 'home:chat' %}";
+            const file_name = "{{ file_name }}";
+            const table_name = "{{ table_name }}";
+            const sender_number = "{{ sender_phone_number }}";
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+    </head>
+    <body>
+        {% load static %}
+        <script src="{% static '/home/filestore.js' %}"></script>
+    
+    </body>
+</html>

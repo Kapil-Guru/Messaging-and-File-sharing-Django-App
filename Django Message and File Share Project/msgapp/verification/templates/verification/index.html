@@ -1,0 +1,58 @@
+<html>
+<head>
+    <style>
+@font-face {font-family: "FF Tisa Sans"; src: url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.eot"); src: url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.woff") format("woff"), url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/0b811799540d4b23474c8cd3c9576879.svg#FF Tisa Sans") format("svg"); }
+	.app_name{
+	color: green;
+	font-size: 50px;
+	text-align: center;
+	position: relative;
+	top: 10%;
+}
+	.centre-box{
+            border-radius: 25px;
+	border:2px solid green;
+            width: 500px;
+            height: 300px;
+            position: relative;
+            top: 35%;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -150px;
+		text-align: center;
+	font-size: 40px;
+        }
+	.text-box{
+	font-size: 30px;	
+	border-radius: 25px;
+	border: 2px solid green;
+	text-align: center;
+	}
+	.submit-button{
+	font-size: 30px;	
+	border-radius: 10px;
+	border: 2px solid brown;
+	color:white;
+	background-color: brown;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	margin-top: 30px;
+	}
+    </style>
+        <title>
+            Startup Page
+        </title>
+    </head>
+    <body>
+	<b><p class="app_name">GRAHAM Messenger</p></b>
+        <div class = "centre-box">
+		<form method = "POST" action="{%url 'verification:start'%}">
+            {% csrf_token %}
+            <p>Enter your phone number</p>
+	<input type="text" name="phone_number" placeholder="Phone Number" class="text-box" required><br>
+	<input type="submit" name="submit" value="Send OTP" class="submit-button">
+		</form>
+        </div>
+    </body>
+</html>

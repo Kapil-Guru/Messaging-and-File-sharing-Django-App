@@ -1,0 +1,181 @@
+<html>
+    <head>
+        <title>Chat Page</title>
+        <script>
+            const table_name = "{{ table_name }}";    
+            const sender_number = "{{ phone_number }}";
+            const receiver_number = "{{ receiver_phone_number }}";
+            const download_url = "{% url 'home:download' %}"
+
+            
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+        <style>
+            .messages-table{
+                width: 90%;
+                margin-bottom: 11%;
+            }
+            .message-left{
+                width: 50%;
+                block-size: fit-content;
+                padding: 10px;
+                max-width: 10px;
+                word-wrap: break-word;
+            }
+            .message-right{
+                width: 50%;
+                block-size: fit-content;
+                padding: 10px;
+                max-width: 10px;
+            }
+            .message-left-div{
+                border: 1px solid rgb(238, 237, 237);
+                background-color: rgb(238, 237, 237);
+                border-radius: 20px;
+                width: fit-content;
+                block-size: fit-content;
+                padding: 10px;
+                max-width: 100%;
+                word-wrap: break-word;
+            }
+            .file-left-div{
+                border: 1px solid rgb(238, 237, 237);
+                background-color: lightgreen;
+                border-radius: 20px;
+                width: fit-content;
+                block-size: fit-content;
+                padding: 10px;
+            }
+            .message-right-div{
+                color: white;
+                border: 1px solid rgb(76, 76, 245);
+                background-color: rgb(76, 76, 245);
+                border-radius: 20px;
+                width: fit-content;
+                block-size: fit-content;
+                padding: 10px;
+                max-width: 100%;
+                word-wrap: break-word;
+            }
+            .file-right-div{
+                border: 3px solid rgb(76, 76, 245);
+                background-color: lightgreen;
+                border-radius: 20px;
+                width: fit-content;
+                block-size: fit-content;
+                padding: 10px;
+            }
+            .message-send{
+                border: 2px solid lightskyblue;
+                border-radius: 20px;
+                padding: 5px;
+                position: fixed;
+                bottom: -1%;
+                width: 96.5%;
+                height: 11%;
+                left: 1.5%;
+                margin-bottom: 6px;
+                background-color: lightskyblue;
+            }
+            .msg-input{
+                border: 3px solid lightskyblue;
+                border-radius: 20px;
+                overflow:hidden;
+                resize: none;
+                padding:10px;
+                width: 82%;
+                position: absolute;
+                bottom: 10px;
+            }
+            .fileShareBtn{
+                position: absolute;
+                width: 7%;
+                border: 1px solid blue;
+                border-radius: 20px;
+                height: 55%;
+                right: 10px;
+                bottom: 15px;
+                background-color: lightskyblue;
+                cursor: pointer;
+            }
+            .msgBtn{
+                position: absolute;
+                width: 7%;
+                border: 1px solid blue;
+                border-radius: 20px;
+                height: 55%;
+                right: 9%;
+                bottom: 15px;
+                background-color: lightskyblue;
+                cursor: pointer;
+            }
+            .file{
+                border: 1px solid blue;
+                border-radius: 20px;
+                background-color: lightskyblue;
+                position: absolute;
+                top: 35%;
+                height: 30%;
+                left: 40%;
+                cursor: pointer;
+            }
+            .sendFileBtn{
+                color: white;
+                border: 1px solid rgb(76, 76, 245);
+                border-radius: 20px;
+                background-color: rgb(76, 76, 245);
+                position: absolute;
+                top: 25%;
+                height: 55%;
+                width: 7%;
+                left: 65%;
+                cursor: pointer;
+            }
+            .closeBtn{
+                border: 1px solid blue;
+                border-radius: 20px;
+                background-color: lightskyblue;
+                position: absolute;
+                right: 3%;
+                top: 25%;
+                height: 55%;
+                width: 7%;
+                cursor: pointer;
+            }
+            .disappear-during-messaging{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="message">
+            <table id="messages-table" class="messages-table" align="center">
+                <tr>
+                    <td class="message-left" id="message-left" align="left">
+                    </td>
+                    <td class="message-right" id="message-right" align="right">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="message-send">
+            <div class="disappear-during-fileshare" id="disappear-during-fileshare">
+                <textarea id="message-input" class="msg-input" placeholder="Enter a Message"></textarea>
+                <input type="submit" value="Send" id="msgBtn" class="msgBtn" title="You can also press 'ALT' to send message">
+                <input type="button" value="File Share" class="fileShareBtn" id="fileShareBtn" onclick="disappear_messaging_section()">
+            </div>
+            <div class="disappear-during-messaging" id="disappear-during-messaging">
+                <form method="POST" id="file-submit-form" class="file-submit-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="file" class="file" id="file">
+                    <input type="submit" value="Send File" class="sendFileBtn" id="sendFileBtn">
+                </form>
+                <input type="button" value="Close" class="closeBtn" id="closeBtn" onclick="disappear_file_section()">
+            </div>
+        </div>
+    {% load static %}
+    <script src="{% static '/home/app.js' %}"></script>
+    </body>
+</html>
